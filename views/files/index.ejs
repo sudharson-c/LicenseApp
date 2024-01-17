@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>License App</title>
+    <!-- Include Bootstrap CSS from CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Your custom styles, if any -->
+</head>
+<body>
+    <div class="container"> <!-- Add Bootstrap container class for responsive layout -->
+
+        <center><h1>Your Files</h1></center>
+
+        <a href="/files/new" class="btn btn-primary mb-3">Upload New File</a>
+
+        <div id="fileList" class="files">
+            <!-- File entries will be dynamically added here -->
+            <% filesData.forEach(file => { %>
+                <div class="card files mb-3">
+                    <div class="card-body">
+                        <h3 class="card-title fileTitle"><%= file.title %></h3>
+                        <img src="<%= file.imageSrc %>" alt="fileImage" class="card-img-top fileImage">
+                        <p class="card-text fileText"><%= file.description %></p>
+                        <button class="btn btn-primary saveFile">Save</button>
+                        <button class="btn btn-info viewFile">View</button>
+                        <button class="btn btn-danger removeFile" onclick="removeFile('<%= file.title %>')">Remove</button>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+
+    </div>
+
+    <!-- Include Bootstrap JS and Popper.js for Bootstrap JavaScript components -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Add custom script for updating the file input label -->
+    <script>
+        // Update the file input label when a file is selected
+        document.getElementById('uploadFile').addEventListener('change', function (e) {
+            var fileName = e.target.files[0].name;
+            var nextSibling = e.target.nextElementSibling;
+            nextSibling.innerText = fileName;
+        });
+    </script>
+</body>
+</html>

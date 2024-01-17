@@ -1,0 +1,17 @@
+.files{
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid black;
+    width: fit-content;
+    height: auto;
+
+}
+.fileTitle{
+    text-align: center;
+    margin-top: auto;
+}
+.fileImage{
+    width: 500px;
+    height: auto;
+
+}
