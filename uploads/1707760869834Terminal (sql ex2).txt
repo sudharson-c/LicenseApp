@@ -1,0 +1,711 @@
+Last login: Thu Feb  8 20:31:49 on ttys001
+sudharson@Sudharsons-MacBook-Air ~ % mysql -h host -u user -p
+zsh: command not found: mysql
+sudharson@Sudharsons-MacBook-Air ~ % alias mysql=/usr/local/mysql/bin/mysql
+sudharson@Sudharsons-MacBook-Air ~ % alias mysqladmin=/usr/local/mysql/bin/mysqladmin
+sudharson@Sudharsons-MacBook-Air ~ % mysql -h host -u user -p              
+Enter password: 
+ERROR 2005 (HY000): Unknown MySQL server host 'host' (8)
+sudharson@Sudharsons-MacBook-Air ~ % mysql-u user -p 
+zsh: command not found: mysql-u
+sudharson@Sudharsons-MacBook-Air ~ % mysql -u user -p
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'user'@'localhost' (using password: YES)
+sudharson@Sudharsons-MacBook-Air ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> connect
+Connection id:    13
+Current database: *** NONE ***
+
+mysql> show
+    -> databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.05 sec)
+
+mysql> CREATE DATABASE mobileshowroom;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mobileshowroom     |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.02 sec)
+
+mysql> use mobileshowroom;
+Database changed
+mysql> desc
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> desc mobileshowroom;
+ERROR 1146 (42S02): Table 'mobileshowroom.mobileshowroom' doesn't exist
+mysql> create table mobile(mobile_name varcha(50),CREATE TABLE Mobile (
+    ->     MobileID INT PRIMARY KEY,
+    ->     Brand VARCHAR(50),
+    ->     Model VARCHAR(50),
+    ->     StorageCapacity INT,
+    ->     RAMSize INT,
+    ->     DisplaySize DECIMAL(5,2),
+    ->     Price DECIMAL(10,2),
+    ->     OperatingSystem VARCHAR(50),
+    ->     Color VARCHAR(20),
+    ->     Availability BOOLEAN
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varcha(50),CREATE TABLE Mobile (
+    MobileID INT PRIMARY KEY,
+    Brand VARCHAR' at line 1
+mysql> create table mobile(mobile_name varcha(50),CREATE TABLE Mobile (     MobileID INT PRIMARY KEY,     Brand VARCHAR(50),     Model VARCHAR(50),     StorageCapacity INT,     RAMSize INT,     DisplaySize DECIMAL(5,2),     Price DECIMAL(10,2),     OperatingSystem VARCHAR(50),     Color VARCHAR(20),     Availability BOOLEAN );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varcha(50),CREATE TABLE Mobile (     MobileID INT PRIMARY KEY,     Brand VARCHAR' at line 1
+mysql> -- Mobile Entity
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE Mobile (
+    ->     MobileID INT PRIMARY KEY,
+    ->     Brand VARCHAR(50),
+    ->     Model VARCHAR(50),
+    ->     StorageCapacity INT,
+    ->     RAMSize INT,
+    ->     DisplaySize DECIMAL(5,2),
+    ->     Price DECIMAL(10,2),
+    ->     OperatingSystem VARCHAR(50),
+    ->     Color VARCHAR(20),
+    ->     Availability BOOLEAN
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> 
+mysql> -- Customer Entity
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE Customer (
+    ->     CustomerID INT PRIMARY KEY,
+    ->     FirstName VARCHAR(50),
+    ->     LastName VARCHAR(50),
+    ->     Email VARCHAR(100),
+    ->     ContactNumber VARCHAR(15),
+    ->     Address TEXT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> 
+mysql> -- Purchase Entity
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE Purchase (
+    ->     PurchaseID INT PRIMARY KEY,
+    ->     PurchaseDate DATE,
+    ->     PurchasePrice DECIMAL(10,2),
+    ->     PaymentMethod VARCHAR(20),
+    ->     WarrantyPeriod INT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> 
+mysql> -- Employee Entity
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE Employee (
+    ->     EmployeeID INT PRIMARY KEY,
+    ->     FirstName VARCHAR(50),
+    ->     LastName VARCHAR(50),
+    ->     Position VARCHAR(50),
+    ->     ContactNumber VARCHAR(15),
+    ->     Email VARCHAR(100),
+    ->     JoiningDate DATE,
+    ->     Salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+mysql> -- Stock Entity
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE Stock (
+    ->     StockID INT PRIMARY KEY,
+    ->     QuantityAvailable INT,
+    ->     PurchaseDate DATE,
+    ->     SupplierID INT,
+    ->     FOREIGN KEY (SupplierID) REFERENCES Supplier(SupplierID)
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'Supplier'
+mysql> 
+mysql> -- Supplier Entity
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE Supplier (
+    ->     SupplierID INT PRIMARY KEY,
+    ->     SupplierName VARCHAR(100),
+    ->     ContactNumber VARCHAR(15),
+    ->     Email VARCHAR(100),
+    ->     Address TEXT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> 
+mysql> CREATE TABLE Mobile (MobileID INT PRIMARY KEY,Brand VARCHAR(50),Model VARCHAR(50),StorageCapacity INT,RAMSize INT,DisplaySize DECIMAL(5,2),Price DECIMAL(10,2),OperatingSystem VARCHAR(50),Color VARCHAR(20),Availability BOOLEAN);
+ERROR 1050 (42S01): Table 'mobile' already exists
+mysql> desc mobile
+    -> ;
++-----------------+---------------+------+-----+---------+-------+
+| Field           | Type          | Null | Key | Default | Extra |
++-----------------+---------------+------+-----+---------+-------+
+| MobileID        | int           | NO   | PRI | NULL    |       |
+| Brand           | varchar(50)   | YES  |     | NULL    |       |
+| Model           | varchar(50)   | YES  |     | NULL    |       |
+| StorageCapacity | int           | YES  |     | NULL    |       |
+| RAMSize         | int           | YES  |     | NULL    |       |
+| DisplaySize     | decimal(5,2)  | YES  |     | NULL    |       |
+| Price           | decimal(10,2) | YES  |     | NULL    |       |
+| OperatingSystem | varchar(50)   | YES  |     | NULL    |       |
+| Color           | varchar(20)   | YES  |     | NULL    |       |
+| Availability    | tinyint(1)    | YES  |     | NULL    |       |
++-----------------+---------------+------+-----+---------+-------+
+10 rows in set (0.08 sec)
+
+mysql> desc
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show mobileshowroom;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mobileshowroom' at line 1
+mysql> show database mobileshowroom;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database mobileshowroom' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mobileshowroom     |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.06 sec)
+
+mysql> desc customer;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| CustomerID    | int          | NO   | PRI | NULL    |       |
+| FirstName     | varchar(50)  | YES  |     | NULL    |       |
+| LastName      | varchar(50)  | YES  |     | NULL    |       |
+| Email         | varchar(100) | YES  |     | NULL    |       |
+| ContactNumber | varchar(15)  | YES  |     | NULL    |       |
+| Address       | text         | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> desc purchase;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| PurchaseID     | int           | NO   | PRI | NULL    |       |
+| PurchaseDate   | date          | YES  |     | NULL    |       |
+| PurchasePrice  | decimal(10,2) | YES  |     | NULL    |       |
+| PaymentMethod  | varchar(20)   | YES  |     | NULL    |       |
+| WarrantyPeriod | int           | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> show tables;
++--------------------------+
+| Tables_in_mobileshowroom |
++--------------------------+
+| Customer                 |
+| Employee                 |
+| Mobile                   |
+| Purchase                 |
+| Supplier                 |
++--------------------------+
+5 rows in set (0.06 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mobileshowroom     |
+| mysql              |
+| performance_schema |INSERT INTO Employee (EmployeeID, FirstName, LastName, Position, ContactNumber, Email, JoiningDate, Salary) VALUES
+(1, 'Amit', 'Sharma', 'Sales Executive', '+91-9876543210', 'amit.sharma@example.com', '2023-01-15', 45000.00),
+(2, 'Priya', 'Verma', 'Customer Service Representative', '+91-8765432109', 'priya.verma@example.com', '2022-12-10', 38000.00),
+(3, 'Rahul', 'Singh', 'Store Manager', '+91-7654321098', 'rahul.singh@example.com', '2022-11-05', 60000.00),
+(4, 'Anjali', 'Gupta', 'Sales Manager', '+91-6543210987', 'anjali.gupta@example.com', '2023-02-20', 70000.00),
+(5, 'Sanjay', 'Patel', 'Customer Service Manager', '+91-5432109876', 'sanjay.patel@example.com', '2023-03-25', 75000.00),
+(6, 'Meera', 'Kumar', 'Sales Associate', '+91-4321098765', 'meera.kumar@example.com', '2022-10-08', 35000.00),
+(7, 'Ravi', 'Shah', 'Technical Support Specialist', '+91-3210987654', 'ravi.shah@example.com', '2023-04-30', 50000.00),
+(8, 'Sneha', 'Chopra', 'Marketing Coordinator', '+91-2109876543', 'sneha.chopra@example.com', '2022-09-15', 42000.00),
+(9, 'Vikram', 'Sinha', 'Product Specialist', '+91-1098765432', 'vikram.sinha@example.com', '2022-08-20', 55000.00),
+(10, 'Pooja', 'Jain', 'Operations Manager', '+91-0987654321', 'pooja.jain@example.com', '2023-05-05', 68000.00),
+(11, 'Rajesh', 'Agarwal', 'Inventory Clerk', '+91-9876543210', 'rajesh.agarwal@example.com', '2022-07-10', 32000.00),
+(12, 'Ananya', 'Mishra', 'HR Coordinator', '+91-8765432109', 'ananya.mishra@example.com', '2022-06-15', 40000.00),
+(13, 'Suresh', 'Yadav', 'Logistics Manager', '+91-7654321098', 'suresh.yadav@example.com', '2022-05-20', 62000.00),
+(14, 'Neeta', 'Rani', 'Accountant', '+91-6543210987', 'neeta.rani@example.com', '2023-06-25', 58000.00),
+(15, 'Vinod', 'Das', 'Quality Assurance Specialist', '+91-5432109876', 'vinod.das@example.com', '2023-07-30', 54000.00);
+
+| sys                |
++--------------------+
+5 rows in set (0.06 sec)
+
+mysql> desc Employee;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| EmployeeID    | int           | NO   | PRI | NULL    |       |
+| FirstName     | varchar(50)   | YES  |     | NULL    |       |
+| LastName      | varchar(50)   | YES  |     | NULL    |       |
+| Position      | varchar(50)   | YES  |     | NULL    |       |
+| ContactNumber | varchar(15)   | YES  |     | NULL    |       |
+| Email         | varchar(100)  | YES  |     | NULL    |       |
+| JoiningDate   | date          | YES  |     | NULL    |       |
+| Salary        | decimal(10,2) | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+8 rows in set (0.11 sec)
+
+mysql> CREATE TABLE new_table AS (SELECT * FROM employee);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc new_table;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| EmployeeID    | int           | NO   |     | NULL    |       |
+| FirstName     | varchar(50)   | YES  |     | NULL    |       |
+| LastName      | varchar(50)   | YES  |     | NULL    |       |
+| Position      | varchar(50)   | YES  |     | NULL    |       |
+| ContactNumber | varchar(15)   | YES  |     | NULL    |       |
+| Email         | varchar(100)  | YES  |     | NULL    |       |
+| JoiningDate   | date          | YES  |     | NULL    |       |
+| Salary        | decimal(10,2) | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+8 rows in set (0.03 sec)
+
+mysql> CREATE TABLE new_table AS (SELECT column_1, column2, ... column_n FROM
+    -> mobile);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '... column_n FROM
+mobile)' at line 1
+mysql> CREATE TABLE mobile_new AS (SELECT mobileid,brand,model,price FROM mobile);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mobile_new;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| mobileid | int           | NO   |     | NULL    |       |
+| brand    | varchar(50)   | YES  |     | NULL    |       |
+| model    | varchar(50)   | YES  |     | NULL    |       |
+| price    | decimal(10,2) | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> ALTER TABLE mobile_new ADD(specification varchar(100)) ;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mobile_new;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| mobileid      | int           | NO   |     | NULL    |       |
+| brand         | varchar(50)   | YES  |     | NULL    |       |
+| model         | varchar(50)   | YES  |     | NULL    |       |
+| price         | decimal(10,2) | YES  |     | NULL    |       |
+| specification | varchar(100)  | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> ALTER TABLE mobile_new MODIFY specification varchar2(100) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar2(100) not null' at line 1
+mysql> ALTER TABLE mobile_new MODIFY( specification varchar2(100) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '( specification varchar2(100) not null)' at line 1
+mysql> ALTER TABLE mobile_new MODIFY( specification varchar(100) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '( specification varchar(100) not null)' at line 1
+mysql> ALTER TABLE mobile_new MODIFY(specification varchar(100) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(specification varchar(100) not null)' at line 1
+mysql> ALTER TABLE mobile_new MODIFY specification varchar(100) not null;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mobile_new;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| mobileid      | int           | NO   |     | NULL    |       |
+| brand         | varchar(50)   | YES  |     | NULL    |       |
+| model         | varchar(50)   | YES  |     | NULL    |       |
+| price         | decimal(10,2) | YES  |     | NULL    |       |
+| specification | varchar(100)  | NO   |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.03 sec)
+
+mysql> ALTER TABLE mobile_new DROP COLUMN specification;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mobile_new;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| mobileid | int           | NO   |     | NULL    |       |
+| brand    | varchar(50)   | YES  |     | NULL    |       |
+| model    | varchar(50)   | YES  |     | NULL    |       |
+| price    | decimal(10,2) | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> ALTER TABLE mobile_new RENAME COLUMN mobileid to mobileId;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mobile_new;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| mobileId | int           | NO   |     | NULL    |       |
+| brand    | varchar(50)   | YES  |     | NULL    |       |
+| model    | varchar(50)   | YES  |     | NULL    |       |
+| price    | decimal(10,2) | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> ALTER TABLE mobile_new RENAME TO mobile_copy;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc mobile_copy;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| mobileId | int           | NO   |     | NULL    |       |
+| brand    | varchar(50)   | YES  |     | NULL    |       |
+| model    | varchar(50)   | YES  |     | NULL    |       |
+| price    | decimal(10,2) | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table mobile_new_copy as (select * from mobile_copy);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mobile_new_copy;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| mobileId | int           | NO   |     | NULL    |       |
+| brand    | varchar(50)   | YES  |     | NULL    |       |
+| model    | varchar(50)   | YES  |     | NULL    |       |
+| price    | decimal(10,2) | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> drop table mobile_new_copy;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc mobile_new_copy;
+ERROR 1146 (42S02): Table 'mobileshowroom.mobile_new_copy' doesn't exist
+mysql> truncate table mobile_new_copy;
+ERROR 1146 (42S02): Table 'mobileshowroom.mobile_new_copy' doesn't exist
+mysql> CREATE DATABASE QUIZ;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE QUIZ;
+Database changed
+mysql> CREATE TABLE Quiz(
+    -> QuizID varchar(10) primary key NOT NULL,
+    -> Topic varchar(50) NOT NULL,
+    -> Subject varchar(50) NOT NULL,
+    -> Level_number number(10) NOT NULL,
+    -> Max_score int NOT NULL,
+    -> Min_pass_mark int NOT NULL,
+    -> Start_time int NOT NULL,
+    -> End_time int NOT NULL,
+    -> InstructorID int NOT NULL,
+    -> Max_duration int NOT NULL,
+    -> Max_attempt_allowed int NOT NULL,
+    -> Duration int NOT NULL
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'number(10) NOT NULL,
+Max_score int NOT NULL,
+Min_pass_mark int NOT NULL,
+Start_t' at line 5
+mysql> CREATE TABLE Quiz( QuizID varchar(10) primary key NOT NULL, Topic varchar(50) NOT NULL, Subject varchar(50) NOT NULL, Level_number number(10) NOT NULL, Max_score int NOT NULL, Min_pass_mark int NOT NULL, Start_time int NOT NULL, End_time int NOT NULL, InstructorID int NOT NULL, Max_duration int NOT NULL, Max_attempt_allowed int NOT NULL, Duration int NOT NULL );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'number(10) NOT NULL, Max_score int NOT NULL, Min_pass_mark int NOT NULL, Start_t' at line 1
+mysql> show tables;
+Empty set (0.01 sec)
+
+mysql> CREATE TABLE Quiz( QuizID varchar(10) primary key NOT NULL, Topic varchar(50) NOT NULL, Subject varchar(50) NOT NULL, Level_number int(10) NOT NULL, Max_score int NOT NULL, Min_pass_mark int
+NOT NULL, Start_time int NOT NULL, End_time int NOT NULL, InstructorID int NOT NULL, Max_duration i
+nt NOT NULL, Max_attempt_allowed int NOT NULL, Duration int NOT NULL );
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> desc Quiz;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| QuizID              | varchar(10) | NO   | PRI | NULL    |       |
+| Topic               | varchar(50) | NO   |     | NULL    |       |
+| Subject             | varchar(50) | NO   |     | NULL    |       |
+| Level_number        | int         | NO   |     | NULL    |       |
+| Max_score           | int         | NO   |     | NULL    |       |
+| Min_pass_mark       | int         | NO   |     | NULL    |       |
+| Start_time          | int         | NO   |     | NULL    |       |
+| End_time            | int         | NO   |     | NULL    |       |
+| InstructorID        | int         | NO   |     | NULL    |       |
+| Max_duration        | int         | NO   |     | NULL    |       |
+| Max_attempt_allowed | int         | NO   |     | NULL    |       |
+| Duration            | int         | NO   |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+12 rows in set (0.01 sec)
+
+mysql> INSERT INTO Quiz values('123','abc','maths','1','100','45','10','11','int1','1hr','1','1hr');
+ERROR 1366 (HY000): Incorrect integer value: 'int1' for column 'InstructorID' at row 1
+mysql> INSERT INTO Quiz values('123','abc','maths','1','100','45','10','11','1','1hr','1','1hr');
+ERROR 1265 (01000): Data truncated for column 'Max_duration' at row 1
+mysql> INSERT INTO Quiz values('123','abc','maths','1','100','45','10','11','1','1hr','1','1hr');
+ERROR 1265 (01000): Data truncated for column 'Max_duration' at row 1
+mysql> INSERT INTO Quiz values('123','abc','maths','1','100','45','10','11','1','1','1','1hr');
+ERROR 1265 (01000): Data truncated for column 'Duration' at row 1
+mysql> INSERT INTO Quiz values('123','abc','maths','1','100','45','10','11','1','1','1','1');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from  Quiz;
++--------+-------+---------+--------------+-----------+---------------+------------+----------+--------------+--------------+---------------------+----------+
+| QuizID | Topic | Subject | Level_number | Max_score | Min_pass_mark | Start_time | End_time | InstructorID | Max_duration | Max_attempt_allowed | Duration |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+--------------+--------------+---------------------+----------+
+| 123    | abc   | maths   |            1 |       100 |            45 |         10 |       11 |            1 |            1 |                   1 |        1 |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+--------------+--------------+---------------------+----------+
+1 row in set (0.01 sec)
+
+mysql> INSERT INTO Quiz values('345','dfd','it','1','100','45','10','11','int1','1','1','1');
+ERROR 1366 (HY000): Incorrect integer value: 'int1' for column 'InstructorID' at row 1
+mysql> INSERT INTO Quiz values('345','dfd','it','1','100','45','10','11','1','1','1','1');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Quiz values('567','qwe','dbms','1','100','45','10','11','1','1','1','1');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Quiz values('890','pfe',iot','1','100','45','10','11','int1','1hr','1','1hr');
+    '> INSERT INTO Quiz values('143','pse','algo','1','100','45','10','11','int1','1hr','1','1hr');
+    '> INSERT INTO Quiz values('134','bcd','eng','1','100','45','10','11','int1','1hr','1','1hr');
+    '> ;
+    '> ;
+    '> 
+    '> 
+    '> se
+    '> efecle
+    '> 
+    '> efef
+    '> d
+    '> fd
+    '> 1\^C
+mysql> INSERT INTO Quiz values('890','pfe',iot','1','100','45','10','11','int1','1hr','1','1hr'),('143','pse','algo','1','100','45','10','11','int1','1hr','1','1hr'),('134','bcd','eng','1','100','45','10','11','int1','1hr','1','1hr');
+    '> 
+    '> ^C
+mysql> INSERT INTO Quiz values('890','pfe',iot','1','100','45','10','11','1','1','1','1'),('143','pse','algo','1','100','45','10','11','1','1','1','1'),('134','bcd','eng','1','100','45','10','11','1','1','1','1');
+    '> 
+    '> ^C
+mysql> INSERT INTO Quiz (QuizId,Topic,Subject,Level_number,Max_score,Min_pass_mark,Start_time,End_time,InstructorId,Max_duration,Max_attempt_allowed,Duration) values('890','pfe',iot','1','100'                                                                                                                                            1','1','1','1');
+    '> ^C
+mysql> INSERT INTO Quiz (QuizId,Topic,Subject,Level_number,Max_score,Min_pass_mark,Start_time,End_time,InstructorId,Max_duration,Max_attempt_allowed,Duration) values('890','pfe',iot','1','100','45','10','11','1','1','1','1'),('143','pse','algo','1','100','45','10','11','1','1','1','1'),('134','bcd','eng','1','100','45','10','11','1','1','1','1');
+    '> 
+    '> ;
+    '> ;
+    '> ))
+    '> ;
+    '> ^C
+mysql> INSERT INTO Quiz (QuizId,Topic,Subject,Level_number,Max_score,Min_pass_mark,Start_time,End_time,InstructorId,Max_duration,Max_attempt_allowed,Duration) values('890','pfe',iot','1','100','45','10','11','1','1','1','1'),('143','pse','algo','1','100','45','10','11','1','1','1','1');('134','bcd','eng','1','100','45','10','11','1','1','1','1');
+    '> 
+    '> 
+    '> 
+    '> 
+    '> ^C
+mysql> select * from  Quiz;
++--------+-------+---------+--------------+-----------+---------------+------------+----------+--------------+--------------+---------------------+----------+
+| QuizID | Topic | Subject | Level_number | Max_score | Min_pass_mark | Start_time | End_time | InstructorID | Max_duration | Max_attempt_allowed | Duration |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+--------------+--------------+---------------------+----------+
+| 123    | abc   | maths   |            1 |       100 |            45 |         10 |       11 |            1 |            1 |                   1 |        1 |
+| 345    | dfd   | it      |            1 |       100 |            45 |         10 |       11 |            1 |            1 |                   1 |        1 |
+| 567    | qwe   | dbms    |            1 |       100 |            45 |         10 |       11 |            1 |            1 |                   1 |        1 |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+--------------+--------------+---------------------+----------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO Quiz (QuizId,Topic,Subject,Level_number,Max_score,Min_pass_mark,Start_time,End_time,InstructorId,Max_duration,Max_attempt_allowed,Duration) values
+    -> ('890','pfe',iot','1','100','45','10','11','1','1','1','1'),
+    '> ('143','pse','algo','1','100','45','10','11','1','1','1','1'),
+    '> ('134','bcd','eng','1','100','45','10','11','1','1','1','1');
+    '> 
+    '> 
+    '> 
+    '> ,;
+    '> );
+    '> ¸¸^C
+mysql> INSERT INTO quiz values('890','pfe',iot','1','100','45','10','11','1','1','1','1')
+    '> ;
+    '> ^C
+mysql> INSERT INTO quiz values('890','pfe',iot','1','100','45','10','11','1','1','1','1');
+    '> INSERT INTO Quiz values('567','qwe','dbms','1','100','45','10','11','1','1','1','1');
+    '> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> clear
+mysql> INSERT INTO Quiz values('567','qwe','dbms','1','100','45','10','11','1','1','1','1');
+ERROR 1062 (23000): Duplicate entry '567' for key 'quiz.PRIMARY'
+mysql> INSERT INTO Quiz values('890','pfe','iot','1','100','45','10','11','1','1','1','1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Quiz values('143','pse','algo','1','100','45','10','11','int1','1hr','1','1hr');
+ERROR 1366 (HY000): Incorrect integer value: 'int1' for column 'InstructorID' at row 1
+mysql> INSERT INTO Quiz values('143','pse','algo','1','100','45','10','11','1','1','1','1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Quiz values('134','bcd','eng','1','100','45','10','11','1','1','1','1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from  Quiz;
++--------+-------+---------+--------------+-----------+---------------+------------+----------+--------------+--------------+---------------------+----------+
+| QuizID | Topic | Subject | Level_number | Max_score | Min_pass_mark | Start_time | End_time | InstructorID | Max_duration | Max_attempt_allowed | Duration |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+--------------+--------------+---------------------+----------+
+| 123    | abc   | maths   |            1 |       100 |            45 |         10 |       11 |            1 |            1 |                   1 |        1 |
+| 134    | bcd   | eng     |            1 |       100 |            45 |         10 |       11 |            1 |            1 |                   1 |        1 |
+| 143    | pse   | algo    |            1 |       100 |            45 |         10 |       11 |            1 |            1 |                   1 |        1 |
+| 345    | dfd   | it      |            1 |       100 |            45 |         10 |       11 |            1 |            1 |                   1 |        1 |
+| 567    | qwe   | dbms    |            1 |       100 |            45 |         10 |       11 |            1 |            1 |                   1 |        1 |
+| 890    | pfe   | iot     |            1 |       100 |            45 |         10 |       11 |            1 |            1 |                   1 |        1 |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+--------------+--------------+---------------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE quiz RENAME COLUMN InstructorID to InstructionID;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from  Quiz;
++--------+-------+---------+--------------+-----------+---------------+------------+----------+---------------+--------------+---------------------+----------+
+| QuizID | Topic | Subject | Level_number | Max_score | Min_pass_mark | Start_time | End_time | InstructionID | Max_duration | Max_attempt_allowed | Duration |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+---------------+--------------+---------------------+----------+
+| 123    | abc   | maths   |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 |
+| 134    | bcd   | eng     |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 |
+| 143    | pse   | algo    |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 |
+| 345    | dfd   | it      |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 |
+| 567    | qwe   | dbms    |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 |
+| 890    | pfe   | iot     |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+---------------+--------------+---------------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Quiz ADD( Feedback varchar(50),Pass_OR_fail varchar(38));
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from  Quiz;
++--------+-------+---------+--------------+-----------+---------------+------------+----------+---------------+--------------+---------------------+----------+----------+--------------+
+| QuizID | Topic | Subject | Level_number | Max_score | Min_pass_mark | Start_time | End_time | InstructionID | Max_duration | Max_attempt_allowed | Duration | Feedback | Pass_OR_fail |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+---------------+--------------+---------------------+----------+----------+--------------+
+| 123    | abc   | maths   |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 134    | bcd   | eng     |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 143    | pse   | algo    |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 345    | dfd   | it      |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 567    | qwe   | dbms    |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 890    | pfe   | iot     |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+---------------+--------------+---------------------+----------+----------+--------------+
+6 rows in set (0.01 sec)
+
+mysql> ALTER TABLE Quiz MODIFY Topic char(50) NOT NULL;
+Query OK, 6 rows affected (0.13 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from  Quiz;
++--------+-------+---------+--------------+-----------+---------------+------------+----------+---------------+--------------+---------------------+----------+----------+--------------+
+| QuizID | Topic | Subject | Level_number | Max_score | Min_pass_mark | Start_time | End_time | InstructionID | Max_duration | Max_attempt_allowed | Duration | Feedback | Pass_OR_fail |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+---------------+--------------+---------------------+----------+----------+--------------+
+| 123    | abc   | maths   |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 134    | bcd   | eng     |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 143    | pse   | algo    |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 345    | dfd   | it      |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 567    | qwe   | dbms    |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 890    | pfe   | iot     |            1 |       100 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
++--------+-------+---------+--------------+-----------+---------------+------------+----------+---------------+--------------+---------------------+----------+----------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Quiz_DB DROP COLUMN Max_score;
+ERROR 1146 (42S02): Table 'quiz.quiz_db' doesn't exist
+mysql> ALTER TABLE Quiz DROP COLUMN Max_score;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from  Quiz;
++--------+-------+---------+--------------+---------------+------------+----------+---------------+--------------+---------------------+----------+----------+--------------+
+| QuizID | Topic | Subject | Level_number | Min_pass_mark | Start_time | End_time | InstructionID | Max_duration | Max_attempt_allowed | Duration | Feedback | Pass_OR_fail |
++--------+-------+---------+--------------+---------------+------------+----------+---------------+--------------+---------------------+----------+----------+--------------+
+| 123    | abc   | maths   |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 134    | bcd   | eng     |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 143    | pse   | algo    |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 345    | dfd   | it      |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 567    | qwe   | dbms    |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
+| 890    | pfe   | iot     |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL     | NULL         |
++--------+-------+---------+--------------+---------------+------------+----------+---------------+--------------+---------------------+----------+----------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Quiz_DB RENAME COLUMN Feedback to FB;
+ERROR 1146 (42S02): Table 'quiz.quiz_db' doesn't exist
+mysql> ALTER TABLE Quiz RENAME COLUMN Feedback to FB;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from  Quiz;
++--------+-------+---------+--------------+---------------+------------+----------+---------------+--------------+---------------------+----------+------+--------------+
+| QuizID | Topic | Subject | Level_number | Min_pass_mark | Start_time | End_time | InstructionID | Max_duration | Max_attempt_allowed | Duration | FB   | Pass_OR_fail |
++--------+-------+---------+--------------+---------------+------------+----------+---------------+--------------+---------------------+----------+------+--------------+
+| 123    | abc   | maths   |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL | NULL         |
+| 134    | bcd   | eng     |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL | NULL         |
+| 143    | pse   | algo    |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL | NULL         |
+| 345    | dfd   | it      |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL | NULL         |
+| 567    | qwe   | dbms    |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL | NULL         |
+| 890    | pfe   | iot     |            1 |            45 |         10 |       11 |             1 |            1 |                   1 |        1 | NULL | NULL         |
++--------+-------+---------+--------------+---------------+------------+----------+---------------+--------------+---------------------+----------+------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> create table quiz_copy as (select * from  Quiz);
+Query OK, 6 rows affected (0.05 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> TRUNCATE TABLE Quiz;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> TRUNCATE TABLE Quiz;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from  Quiz;
+Empty set (0.00 sec)
+
+mysql> quit
+Bye
+sudharson@Sudharsons-MacBook-Air ~ % 

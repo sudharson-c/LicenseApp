@@ -4,45 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create File</title>
-    <!-- Include Bootstrap CSS from CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
         <h1>Create New File</h1>
-
-        <!-- Form for creating a new file -->
         <form action="/files" method="POST" enctype="multipart/form-data">
-            <!-- Title -->
             <div class="form-group">
                 <label for="title">Title:</label>
                 <input type="text" class="form-control" id="title" name="title" required>
             </div>
-
-            <!-- Description -->
             <div class="form-group">
                 <label for="description">Description:</label>
                 <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
             </div>
-
-            <!-- File Input for Image -->
             <div class="form-group">
                 <label for="imageFile">Image File:</label>
-                <input type="file" class="form-control-file" id="imageFile" name="imageFile" accept="image/*" required>
+                <input type="file" class="form-control-file" id="imageFile" name="imageFile" required>
             </div>
-
-            <!-- Expiry Date -->
             <div class="form-group">
-                <label for="expiryDate">Expiry Date:</label>
-                <input type="date" class="form-control" id="expiryDate" name="expiryDate" required>
+                <input type="checkbox" id="hasExpiry" name="hasExpiry"><label for="hasExpiry">Has Expiry?</label>
+                <script>
+                    document.getElementById("hasExpiry").addEventListener("change", function() {
+                        var expiryDateInput = document.getElementById("expiryDate");
+                        expiryDateInput.style.display = this.checked ? "block" : "none";
+                    });
+                </script>
+                <label for="expiryDate" style="display: none;">Expiry Date:</label>
+                <input type="date" class="form-control" id="expiryDate" name="expiryDate" style="display: none;">
             </div>
-
-            <!-- Submit button -->
+            <a href="/" class="btn btn-primary">Back to Home</a>
             <button type="submit" class="btn btn-primary">Create File</button>
         </form>
     </div>
-
-    <!-- Include Bootstrap JS and Popper.js for Bootstrap JavaScript components -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

@@ -1,12 +1,11 @@
-
-
-// Get the file list container
 const fileListContainer = document.getElementById("fileList");
 
-const removeFile = (file) => {
-    //filesData.pop(file)
-    //filesData = filesData.filter((fileItem)=> fileItem!=file);
-    console.log(file)
+const removeFile = (title) => {
+    console.log("Removing file:", title);
+}
+
+const viewFile = (title) => {
+    window.open("http://localhost:3000/uploads/" + title, "_blank");
 }
 
 filesData.forEach(file => {
@@ -18,13 +17,13 @@ filesData.forEach(file => {
         <img src="${file.imageSrc}" alt="fileImage" class="fileImage">
         <p class="fileText">${file.description}</p>
         <button class="saveFile">Save</button>
-        <button class="viewFile">View</button>
-        <button class="removeFile id="removeFile" onclick=removeFile(file)">Remove</button>
+        <button class="viewFile" onclick="viewFile('${file.title}')">View</button>
+        <button class="removeFile" onclick="removeFile('${file.title}')">Remove</button>
     `;
-
-    // Append the file entry to the file list container
     fileListContainer.appendChild(fileEntry);
 });
 
 let removeF = document.getElementById("removefile");
-removeF.onclick(removeFile());
+removeF.onclick = () => {
+    alert('This feature is not yet available');
+};
