@@ -17,7 +17,7 @@ filesData.forEach(file => {
         <img src="${file.imageSrc}" alt="fileImage" class="fileImage">
         <p class="fileText">${file.description}</p>
         <button class="saveFile">Save</button>
-        <button class="viewFile" onclick="viewFile('${file.title}')">View</button>
+        <button class="viewFile" onclick=<%viewFile(${file})%>>View</button>
         <button class="removeFile" onclick="removeFile('${file.title}')">Remove</button>
     `;
     fileListContainer.appendChild(fileEntry);
