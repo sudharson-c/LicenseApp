@@ -27,7 +27,7 @@
                         <iframe src="/uploads/<%=fileD.imgSrc %>" alt="fileImage" style="width: 100%;height:300px;" class="card-img-top fileImage">
                             </iframe>
                         <p class="card-text fileText"><%= fileD.description %></p>
-                        <button class="btn btn-primary saveFile">Save</button>
+                        <a href="/uploads/<%= fileD.imgSrc %>" class="btn btn-primary" download><button class="btn btn-primary saveFile">Save</button></a>
                         <form action="/files/<%= fileD._id %>" method="GET">
                             <button type="submit" class="btn btn-info viewFile" >View</button>
                         </form>
