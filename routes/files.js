@@ -1,8 +1,8 @@
-const e = require("express");
 const express = require("express")
 const mongoose = require("mongoose")
 const router = express.Router();
 const multer = require("multer");
+const fs  = require("fs")
 
 
 const storage = multer.diskStorage({
@@ -13,7 +13,6 @@ const storage = multer.diskStorage({
     },
 })
 const upload = multer({storage:storage})
-
 router.get('/new',(req,res)=>{res.render('files/new')})
 
 require("../models/FileDetails")
@@ -30,16 +29,38 @@ router.post('/',upload.single("imageFile"), async(req,res)=> {
         res.send({status: error})
     }
 })
-router.get("/",(req,res)=>
-{
-    FileSchema.find({}).then((data)=>{
-        try {
-            res.send({status: "ok",data: data})    
-        } catch (error) {
-            res.send({status: error,data: null})
+router.get("/:id", async (req, res) => {
+    try {
+        const fileId = req.params.id;
+        const fileData = await FileSchema.findById(fileId);
+        if (!fileData) {
+            console.log("File not found");
+            return res.status(404).send("File not found");
         }
-    })
-})
+        const fileToSend = { title: fileData.title, description: fileData.description, filePath: fileData.filepath };
+        res.render("files/file", { fileData: fileToSend });
+    } catch (error) {
+        console.error('Error fetching file:', error);
+        res.status(500).send('Error fetching file');
+    }
+});
 
-//router.delete("/:")
+router.delete("/:id", async (req, res) => {
+    try {
+        const deletedId = req.params.id;
+        const fileData = await FileSchema.findByIdAndDelete(deletedId);
+        if (!fileData) {
+            console.log("File not found");
+            return res.status(404).send("File not found");
+        }
+        const filePath = fileData.filepath;
+        fs.unlinkSync(`${__dirname}/../uploads/${filePath}`);
+        console.log('File deleted from server:', filePath);
+        res.status(200).send('File deleted successfully');
+    } catch (error) {
+        console.error('Error deleting file:', error);
+        res.status(500).send('Error deleting file');
+    }
+});
+
 module.exports = router;

@@ -11,8 +11,7 @@
 </head>
 <body>
      <script>
-        htt
-        const removeFile = (file) => {console.log(file)}
+        let i=0
      </script>   
     <div class="container">
 
@@ -29,10 +28,14 @@
                             </iframe>
                         <p class="card-text fileText"><%= fileD.description %></p>
                         <button class="btn btn-primary saveFile">Save</button>
-                        <button class="btn btn-info viewFile" >View</button>
+                        <form action="/files/<%= fileD._id %>" method="GET">
+                            <button type="submit" class="btn btn-info viewFile" >View</button>
+                        </form>
+                        <form action="/files/<%= fileD._id %>?_method=DELETE" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-danger" >Delete</button>
+                        </form>
                     </div>
                 </div>
-                <button class="btn btn-danger removeFile" onclick="removeFile('<%= fileD %>')">Remove</button>
             <% }); %>
         </div>
 
@@ -46,6 +49,7 @@
             var nextSibling = e.target.nextElementSibling;
             nextSibling.innerText = fileName;
         });
+
     </script>
 </body>
 </html>

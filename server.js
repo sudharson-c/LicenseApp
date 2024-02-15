@@ -1,6 +1,7 @@
 const express = require("express")
 const fileRoute = require("./routes/files")
 const app = express()
+const methodOverride = require('method-override');
 const mongoose = require('mongoose')
 require("dotenv").config()
 
@@ -9,7 +10,7 @@ mongoose.connect(mongo_uri, { useNewUrlParser: true })
     .then(()=>console.log("Mongodb connected"))
     .catch((err)=> console.log(err))
 
-
+app.use(methodOverride('_method'));
 app.use(express.json())
 app.set('view engine','ejs');
 app.use("/uploads",express.static("uploads"));
@@ -24,6 +25,7 @@ app.get('/', async (req, res) => {
     try {
         const fileData = await FileSchema.find({});
         const filesData = fileData.map(data => ({
+            _id : data._id,
             title: data.title,
             description: data.description,
             imgSrc: data.filepath

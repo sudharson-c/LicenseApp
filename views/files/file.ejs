@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= fileData.title %></title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <center>
+        <h1><%= fileData.title %></h1>
+        <p><%= fileData.description %></p>
+
+    <div class="ratio ratio-1x1">
+        <iframe class="img-fluid" src="/uploads/<%= fileData.filePath %>" allowfullscreen style="height: 70%;width: 70%;"></iframe>
+      </div>
+    <a href="/" class="btn btn-primary">Home</a>
+    </center>
+</body>
+</html>
