@@ -12,10 +12,8 @@
         <h1><%= fileData.title %></h1>
         <p><%= fileData.description %></p>
 
-    <div class="ratio ratio-1x1">
-        <iframe class="img-fluid" src="/uploads/<%= fileData.filePath %>" allowfullscreen style="height: 70%;width: 70%;"></iframe>
-      </div>
-    <a href="/" class="btn btn-primary">Home</a>
+        <iframe class="img-fluid" src="/uploads/<%= fileData.filePath %>" allowfullscreen style="width: 100%;height: 625px; padding: 10px;"></iframe>
+        <a href="/" class="btn btn-primary">Home</a>
     </center>
 </body>
 </html>

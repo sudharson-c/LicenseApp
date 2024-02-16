@@ -1,14 +1,16 @@
+const dotenv = require('dotenv')
+dotenv.config()
 const express = require("express")
 const fileRoute = require("./routes/files")
 const app = express()
 const methodOverride = require('method-override');
 const mongoose = require('mongoose')
-require("dotenv").config()
 
-const mongo_uri = "mongodb+srv://sudharson:prati@sudharcluster.imomdcz.mongodb.net/"
+const mongo_uri = process.env.MONGO_URI
+console.log(mongo_uri)
 mongoose.connect(mongo_uri, { useNewUrlParser: true })
-    .then(()=>console.log("Mongodb connected"))
-    .catch((err)=> console.log(err))
+.then(()=>console.log("Mongodb connected"))
+.catch((err)=> console.log(err))
 
 app.use(methodOverride('_method'));
 app.use(express.json())
@@ -40,3 +42,4 @@ app.get('/', async (req, res) => {
 
 
 app.listen(3000,()=>{console.log("Server running!")});
+

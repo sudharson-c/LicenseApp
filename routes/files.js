@@ -56,7 +56,7 @@ router.delete("/:id", async (req, res) => {
         const filePath = fileData.filepath;
         fs.unlinkSync(`${__dirname}/../uploads/${filePath}`);
         console.log('File deleted from server:', filePath);
-        res.status(200).send('File deleted successfully');
+        res.status(200).redirect("/");
     } catch (error) {
         console.error('Error deleting file:', error);
         res.status(500).send('Error deleting file');
